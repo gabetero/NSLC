@@ -1,0 +1,70 @@
+from cryptography.fernet import Fernet
+import os
+
+def generate_and_save_key(filename='secret.key'):
+    key = Fernet.generate_key()
+    with open(filename, 'w') as key_file:
+        key_file.write(key)
+    print("Key generated and saved to " + filename)
+    return key
+
+def load_key(filename='secret.key'):
+    if os.path.exists(filename):
+        with open(filename, 'r') as key_file:
+            key = key_file.read()
+        print(f"Loaded key from {filename}")
+        return key
+    else:
+        print("No key file found.")
+        return 0
+
+def encrypt_message(key, message):
+    cipher = Fernet(key)
+    encrypted_message = cipher.encrypt(message)
+    return encrypted_message
+
+def decrypt_message(key, encrypted_message):
+    cipher = Fernet(key)
+    decrypted_message = cipher.decrypt(encrypted_message)
+    return decrypted_message
+
+def main():
+    key = load_key()
+    while True:
+        print("Encryption Menu")
+        print("1 - Generate Key")
+        print("2 - Encrypt")
+        print("3 - Decrypt")
+        print("4 - Quit")
+        option = input("Choose: ")
+
+        if option == 1:
+            key = generate_and_save_key()
+
+        elif option == '2':
+            if key != 0:
+                msg = input("Message: ")
+                result = encrypt_message(key, msg)
+                print("Encrypted:", result)
+            else:
+                print("No key loaded.")
+
+        elif option == '3':
+            if key:
+                enc = input("Encrypted: ")
+                try:
+                    output = decrypt_message(key, enc)
+                    print("Decrypted:", output)
+                except:
+                    print("Could not decrypt.")
+            else:
+                print("Load key first.")
+
+        elif option == 4:
+            print("Bye")
+            break
+        else:
+            print("Bad choice")
+
+if __name__ == "__main__":
+    main()
