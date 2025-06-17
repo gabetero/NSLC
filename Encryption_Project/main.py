@@ -73,6 +73,3 @@ def main():
         else:
             print("Invalid choice. Please try again.")
 
-# Run the main function
-if __name__ == '__main__':
-    main()
