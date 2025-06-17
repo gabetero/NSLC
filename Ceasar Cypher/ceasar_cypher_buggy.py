@@ -67,5 +67,4 @@ def main()
             print("⚠️ Invalid choice. Please enter a number from 1 to 4.")
 
 
-if __name__ == "__main__":
-    main()
+
