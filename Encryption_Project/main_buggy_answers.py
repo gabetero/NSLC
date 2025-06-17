@@ -71,6 +71,3 @@ def main():
         else:
             print("Bad choice")
             
-# Run program
-if __name__ == "__main__":
-    main()
